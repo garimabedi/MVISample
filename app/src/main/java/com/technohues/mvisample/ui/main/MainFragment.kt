@@ -37,12 +37,23 @@ class MainFragment : Fragment() {
     private fun subscribeObservers() {
         viewModel.dataState.observe(this, Observer { dataState ->
 
-            dataState.blogPosts?.let { blogPosts ->
+            // Handle Data
+            dataState.data?.blogPosts?.let { blogPosts ->
                 viewModel.setBlogPostsData(blogPosts)
             }
 
-            dataState.user?.let { user ->
+            dataState.data?.user?.let { user ->
                 viewModel.setUserData(user)
+            }
+
+            // Handle Error
+            dataState.message?.let {
+
+            }
+
+            // Handle Loading
+            dataState.isLoading.let {
+
             }
         })
 
@@ -79,7 +90,7 @@ class MainFragment : Fragment() {
     }
 
     private fun triggerGetUserEvent() {
-        viewModel.setStateEvent(MainStateEvent.GetBlogPostsEvent())
+        viewModel.setStateEvent(MainStateEvent.GetUserEvent("1"))
     }
 
 
